@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="view_generar_cuota" model="ir.ui.view">
+            <field name="name">Generar cuotas Sociales</field>
+            <field name="model">generar.cuotas</field>
+            <field name="arch" type="xml">
+                <form string="Merge Partner Invoice" version="7.0">
+                    <group>
+                        <separator
+                            string="Generar cuotas sociales"
+                            colspan="4" />
+                        <p>
+Tenga en cuenta que :<br/><br/>
+
+* Se generaran las cuotas sociales de acuerdo a los parametros provistos en este proceso<br/>
+
+                            </p>
+                    </group>
+                    <group name="options">
+                        <field name="all_partner"/>
+                        <field name="partner_id" attrs="{'invisible': [('all_partner', '=', True)]}"/>
+                        <field name="cuota_id"/>
+                        <field name="fiscalyear_id"/>
+                        <field name="period_from" domain="[('fiscalyear_id', '=', fiscalyear_id)]"/>
+                        <field name="period_to" domain="[('fiscalyear_id', '=', fiscalyear_id)]"/>
+                        <field name="company_id"/>
+                    </group>
+                    <footer>
+                        <button name="generar_cuotas_sociales" string="Generar Cuotas"
+                            type="object" class="oe_highlight" />
+                        or
+                        <button string="Cancel" class="oe_link"
+                            special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <act_window name="Generar cuotas sociales" res_model="generar.cuotas" view_mode="form" target="new" multi="True" key2="client_action_multi" id="action_view_generar_cuota" />
+
+        <menuitem id="partner_gen_apo_sol" name="Generar Aporte y Solidaridad" parent="partner_coop" action="action_view_generar_cuota"/>
+
+    </data>
+</openerp>

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <!-- Definimos la accion -->
+ 
+        <record model="ir.actions.act_window" id="partner_sol_ing_action">
+            <field name="name">Solicitud de ingreso</field>
+            <field name="res_model">solicitud.ingreso</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">Ingrese una solicitud de asociacion</p>
+            </field>
+        </record>
+         
+        <menuitem id="partner_solicitud_ing" name="Solicitud de Ingreso" parent="partner_coop" action="partner_sol_ing_action"/>
+        
+        <record id="view_sol_ing_coop" model="ir.ui.view">
+            <field name="name">Solicitud de ingreso Nuevo Socio</field>
+            <field name="model">solicitud.ingreso</field>            
+            <field name="arch" type="xml">
+                <form>
+                        <header> 
+                            <button string="Aprobar" type="object" name="aprobar_solicitud" class="oe_highlight" attrs="{'invisible': [('state', '=', 'aceptado')]}" />                            
+                            <button string="Rechazar" type="object" name="rechazar_solicitud" attrs="{'invisible': [('state', '=', 'rechazado')]}"/>
+                            <button string="Cancelar" type="object" name="cancelar_solicitud" attrs="{'invisible': [('state', '=', 'cancel')]}"/>
+                            <button string="Crear factura nuevo socio" type="object" name="create_invoice" class="oe_highlight" attrs="{'invisible': ['|',('state','!=','aceptado'),('initial_fee', '=', 'none')]}"/>                            
+                            <field name="state" widget="statusbar"/>                            
+                        </header>
+                        <sheet>
+                            <separator string="Solicitud de Ingreso"/>
+                            <group name="group_top">                                
+                                <group name="group_left">
+                                    <field name="nro_solicitud"/>
+                                    <field name="date_solicitud"/>
+                                    <field name="name"/>                                    
+                                </group>                                
+                                <group name="group_right">                                    
+                                    <!-- <field name="state"/> -->
+                                    <field name="comentario"/>                                   
+                                </group>
+                                <separator string = "Cuota de ingreso"/>
+                                <group name="group_botom">
+                                    <group name="group_left">
+                                        <field name="initial_fee" />
+                                        <field name="product_fee" attrs="{'required': [('initial_fee', '!=', 'none')], 'invisible': [('initial_fee', '=', 'none')]}"/>
+                                        <field name="fixed_fee" attrs="{'required': [('initial_fee', '=', 'fixed')], 'invisible': [('initial_fee', '!=', 'fixed')]}"/>
+                                        <field name="percentage_fee" attrs="{'required': [('initial_fee', '=', 'percentage')], 'invisible': [('initial_fee', '!=', 'percentage')]}"/>
+                                    </group>
+                                </group>
+                            <field name="company_id"/>                                       
+                            <field name="invoice_receivable_account_id"/>    
+                            </group>
+                        </sheet> 
+                </form>                                    
+            </field>
+        </record>
+
+        <record id="view_tree_ing_coop" model="ir.ui.view">
+            <field name="name">Solicitud de ingreso Tree</field>
+            <field name="model">solicitud.ingreso</field>
+                <field name="arch" type="xml">
+                    <tree>
+                        <field name="nro_solicitud"/>
+                        <field name="name"/>
+                        <field name="date_solicitud"/>
+                        <field name="state"/>
+                    </tree>
+                </field>
+        </record>
+    </data>
+</openerp>

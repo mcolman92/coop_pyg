@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <!-- Definimos la accion -->
+ 
+        <record model="ir.actions.act_window" id="partner_fee_social_action">
+            <field name="name">Cuotas Sociales</field>
+            <field name="res_model">cuota.social</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">No existen cuotas generadas o pendientes</p>
+            </field>
+            <field name="context">
+                {'search_default_filter_state_pending': True}
+            </field>
+        </record>
+       
+        <menuitem id="partner_cuotas_sociales" name="Cuotas Sociales" parent="partner_coop" action="partner_fee_social_action"/>
+
+        <record id="view_form_fee_social_coop" model="ir.ui.view">
+            <field name="name">Cuotas sociales Form</field>
+            <field name="model">cuota.social</field>            
+            <field name="arch" type="xml">
+                <form>
+                        <header>                           
+                            <field name="state" widget="statusbar"/>                            
+                        </header>
+                        <sheet>
+                            <separator string="Cuotas Sociales"/>
+                            <group name="group_top">                                
+                                <group name="group_left">
+                                    <field name="partner_id"/>                                    
+                                    <field name="name"/>
+                                    <field name="tipo_cuota_social_id"/>      
+                                    <field name="date_expiry"/>                              
+                                </group>                                
+                                <group name="group_right">                                    
+                                    <!-- <field name="state"/> -->
+                                    <field name="invoice_id"/> 
+                                    <field name="debit"/>
+                                    <field name="credit"/>       
+                                    <field name="periodo_id"/>                           
+                                </group>   
+                            </group>
+                        </sheet> 
+                </form>                                    
+            </field>
+        </record>
+
+        <record id="view_tree_fee_social_coop" model="ir.ui.view">
+            <field name="name">Cuotas Sociales Tree</field>
+            <field name="model">cuota.social</field>
+                <field name="arch" type="xml">
+                    <tree>
+                        <field name="partner_id"/>
+                        <field name="name"/>
+                        <field name="tipo_cuota_social_id"/> 
+                        <field name="periodo_id"/>
+                        <field name="debit"/>
+                        <field name="credit"/>
+                        <field name="state"/>
+                    </tree>
+                </field>
+        </record>
+
+        <record id="view_filter_cuotas_sociales_coop" model="ir.ui.view">
+            <field name="name">Cuotas sociales filter</field>
+            <field name="model">cuota.social</field>
+                <field name="arch" type="xml">
+                    <search>
+                        <field name="partner_id"/>
+                        <field name="name"/>
+                        <field name="tipo_cuota_social_id"/>
+                        <field name="periodo_id"/>
+                        <field name="state"/>
+                        <filter name="filter_state_pending" string="Pendientes" domain="[('state','not in',['paid','cancel'])]"/>
+                        <filter name="filter_state_paid" string="Pagados" domain="[('state','in',['paid'])]"/>
+                    </search>
+                </field>
+        </record>
+    </data>
+</openerp>

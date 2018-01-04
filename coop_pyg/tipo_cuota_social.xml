@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <!-- Definimos la accion -->
+ 
+        <record model="ir.actions.act_window" id="partner_type_fee_social_action">
+            <field name="name">Tipo Cuotas Sociales</field>
+            <field name="res_model">tipo.cuota.social</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">Cree un tipo de cuota social</p>
+            </field>
+        </record>
+       
+        <menuitem id="partner_tipo_cuotas_sociales" name="Tipo de cuotas sociales" parent="configuration_coop" action="partner_type_fee_social_action"/>
+
+        <record id="view_form_type_fee_social_coop" model="ir.ui.view">
+            <field name="name">Tipo Cuotas sociales Form</field>
+            <field name="model">tipo.cuota.social</field>            
+            <field name="arch" type="xml">
+                <form>
+                        <header>                           
+                                               
+                        </header>
+                        <sheet>
+                            <separator string="Cuotas Sociales"/>
+                            <group name="group_top">                                
+                                <group name="group_left">
+                                    <field name="name"/>                                    
+                                    <field name="descripcion"/>
+                                    <field name="product_id"/>      
+                                    <field name="activo"/>                              
+                                </group>                                
+                                <group name="group_right">                                    
+                                                           
+                                </group>   
+                            </group>
+                        </sheet> 
+                </form>                                    
+            </field>
+        </record>
+
+        <record id="view_tree_tipe_fee_social_coop" model="ir.ui.view">
+            <field name="name">Tipo Cuotas Sociales Tree</field>
+            <field name="model">tipo.cuota.social</field>
+                <field name="arch" type="xml">
+                    <tree>
+                        <field name="name"/>
+                        <field name="descripcion"/>
+                        <field name="product_id"/>
+                        <field name="activo"/>
+                    </tree>
+                </field>
+        </record>
+    </data>
+</openerp>
