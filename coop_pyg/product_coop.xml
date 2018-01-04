@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <!-- Definimos la accion -->
+ 
+        <record model="ir.actions.act_window" id="product_coop_action">
+            <field name="name">Productos Coop</field>
+            <field name="res_model">product.coop</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">Cree un producto cooperativo</p>
+            </field>
+        </record>
+         
+        <menuitem id="product_coop" name="Productos" parent="configuration_coop" action="product_coop_action"/>
+        
+        <record id="view_form_product_coop" model="ir.ui.view">
+            <field name="name">Productos cooperativos</field>
+            <field name="model">product.coop</field>            
+            <field name="arch" type="xml">
+                <form>
+                        <header> 
+                       
+                        </header>
+                        <sheet>
+                            <group>
+                                <field name="name"/>
+                                <field name="activo"/>                                                           
+                                <field name="product"/>                           
+                            </group>
+                        </sheet> 
+                </form>                                    
+            </field>
+        </record>
+
+        <record id="view_tree_product_coop" model="ir.ui.view">
+            <field name="name">Product coop tree</field>
+            <field name="model">product.coop</field>
+                <field name="arch" type="xml">
+                    <tree>
+                        <field name="name"/>
+                    </tree>
+                </field>
+        </record>
+    </data>
+</openerp>

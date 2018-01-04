@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <!-- Definimos la accion -->
+ 
+        <record model="ir.actions.act_window" id="partner_list_action">
+            <field name="name">Socios</field>
+            <field name="res_model">res.partner</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">Cree el primer socio</p>
+            </field>
+            <field name="context">
+                {'search_default_filter_socio_coop': True}
+            </field>
+
+        </record>
+ 
+        <!-- menu superior o principal: no hereda de otro menu -->
+        <menuitem id="main_coop" name="Cooperativa"/>
+ 
+        <!-- Definimos un menu de solo vista, este menu tiene como menu padre a Cooperativa -->
+        <menuitem id="partner_coop" name="Socios" parent="main_coop" sequence="10"/>
+
+        <!-- Definimos otro menu que tiene como menu padre a Socios.-->
+        <menuitem id="partner_coop_add" name="Socios" parent="partner_coop" action="partner_list_action"/>
+        <menuitem id="partner_solicitud_ing" name="Solicitud de Ingreso" parent="partner_coop" action="partner_list_action"/>
+        <menuitem id="partner_solicitud_sub" name="Solicitud de subsidio" parent="partner_coop" action="partner_list_action"/>
+        <menuitem id="partner_gen_apo_sol" name="Generar Aporte y Solidaridad" parent="partner_coop" action="partner_list_action"/>
+        <menuitem id="partner_cuotas_sociales" name="Cuotas Sociales" parent="partner_coop" action="partner_list_action"/>
+        <menuitem id="man_bienes" name="Manifestacion de bienes" parent="partner_coop" action="partner_list_action"/>
+
+        <!-- Definimos un menu de solo vista, este menu tiene como menu padre a Cooperativa -->
+        <menuitem id="ahorro_coop" name="Ahorros" parent="main_coop" sequence="20" />
+
+        <!-- Definimos otro menu que tiene como menu padre a Ahorros.-->
+        <menuitem id="ahorro_account_coop" name="Cuentas de Ahorro" parent="ahorro_coop" action="partner_list_action"/>
+        <menuitem id="ahorro_simulacion_coop" name="Simulacion de ahorros" parent="ahorro_coop" action="partner_list_action"/>
+
+
+        <!-- Definimos un menu de solo vista, este menu tiene como menu padre a Cooperativa -->
+        <menuitem id="credito_coop" name="Creditos" parent="main_coop" sequence="30" />
+
+        <!-- Definimos otro menu que tiene como menu padre a Creditos.-->
+        <menuitem id="sol_credito" name="Solicitud de Creditos" parent="credito_coop" action="partner_list_action"/>
+        <menuitem id="simulacion_credito" name="Simulacion de Creditos" parent="credito_coop" action="partner_list_action"/>
+
+        <!-- Definimos un menu de solo vista, este menu tiene como menu padre a Cooperativa -->
+        <menuitem id="informe_coop" name="Informes" parent="main_coop" sequence="40" />
+
+        <!-- Definimos otro menu que tiene como menu padre a Creditos.-->
+        <menuitem id="informe_credito" name="Informes varios" parent="informe_coop" action="partner_list_action"/>
+
+        <!-- Definimos un menu de solo vista, este menu tiene como menu padre a Cooperativa -->
+        <menuitem id="configuration_coop" name="Configuraciones" parent="main_coop" sequence="50" />
+
+        <!-- Definimos otro menu que tiene como menu padre a Creditos.-->
+        <menuitem id="parametro_general" name="Parametros generales" parent="configuration_coop" action="partner_list_action"/>
+
+        <record id="view_form_partner_coop" model="ir.ui.view">
+            <field name="name">Form Partner Coop</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <notebook  position="before">
+                    <group name="group_botom">
+                        <group name="group_left">
+                            <field name="date_solicitud"/>
+                            <field name="socio_nro"/>
+                            <field name="cedula_identidad"/>
+                            <field name="date_nacimiento"/>
+                            <field name="nacionalidad"/>
+                            <field name="profesion"/>
+                            <field name="estado_civil"/>
+                            <field name="trabajo"/>
+                            <field name="antiguedad_laboral"/>
+                            <field name="conyugue"/>
+                            <field name="proponente"/>                            
+                        </group>
+                    </group>
+                </notebook>
+                <field name="active" position="before">
+                    <field name="socio"/>
+                </field>
+                <field name="supplier" position="before">
+                    <field name="socio"/>
+                </field>           
+            </field>
+        </record>
+        <record id="view_tree_partner_coop" model="ir.ui.view">
+            <field name="name">Partner Coop Tree</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_tree"/>
+            <field name="arch" type="xml">
+                <field name="display_name" position="before">
+                    <field name="socio_nro"/>
+                </field>
+            </field>
+        </record> 
+         <record id="view_filter_partner_coop" model="ir.ui.view">
+            <field name="name">Partner Coop Filter</field>
+            <field name="model">res.partner</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="name"/>
+                    <field name="x_ruc"/>
+                    <field name="socio_nro"/>
+                    <filter name="filter_socio_coop" string="Socios" domain="[('socio','=',True)]" />
+
+                </search>
+            </field>
+        </record> 
+
+
+    </data>
+</openerp>

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <!-- Definimos la accion -->
+ 
+        <record model="ir.actions.act_window" id="subsidio_action">
+            <field name="name">Subsidios</field>
+            <field name="res_model">subsidio</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">Ingrese un tipo de subsidio</p>
+            </field>
+        </record>
+         
+        <menuitem id="partner_subsidio" name="Subsidios" parent="configuration_coop" action="subsidio_action"/>
+        
+        <record id="view_form_subsidio_coop" model="ir.ui.view">
+            <field name="name">Tipos de subsidios</field>
+            <field name="model">subsidio</field>            
+            <field name="arch" type="xml">
+                <form>
+                        <header> 
+                            
+                        </header>
+                        <sheet>
+                            <group name="group_top">
+
+                                <group name="group_left">
+                                <field name="name"/>
+                                <field name="monto"/>
+                                <field name="condiciones"/>
+                                <field name="activo"/>                                   
+                                </group>
+                                <group name="group_right">                                                                   
+                                </group>
+                            </group>
+                        </sheet> 
+                </form>                                    
+            </field>
+        </record>
+
+        <record id="view_tree_sub_coop" model="ir.ui.view">
+            <field name="name">Subsidio Tree</field>
+            <field name="model">subsidio</field>
+                <field name="arch" type="xml">
+                    <tree>
+                        <field name="name"/>
+                        <field name="monto"/>                        
+                    </tree>
+                </field>
+        </record>
+    </data>
+</openerp>
